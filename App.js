@@ -6,51 +6,38 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, { Component } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
+  SafeAreaView,
   View,
 } from 'react-native';
-
+import { StoreProvider, stores } from './src/store';
 
 import { Provider as PaperProvider } from 'react-native-paper';
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+import createRootNavigator from './src/navigation/Nav';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+
+const Layout = createRootNavigator;
+
+class App extends Component {
+  render() {
+    return (
+      <StoreProvider>
+        <PaperProvider>
+        <SafeAreaView style={styles.container}>
+          <Layout auth={stores.auth}/>
+        </SafeAreaView>
+        </PaperProvider>
+      </StoreProvider>
+    );
   };
-
-  return (
-    <PaperProvider>
-    <View />
-  </PaperProvider>
-  );
-};
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  container:{
+    flex:1
+  }
 });
 
 export default App;
