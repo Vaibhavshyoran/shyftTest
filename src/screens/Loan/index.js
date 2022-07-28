@@ -6,7 +6,32 @@ import Header from "../../components/Header";
 import InputField from "../../components/InputField";
 import RadioField from "../../components/RadioField";
 import { useStore } from "../../store";
-import validator from "../../utils/Validation";
+import isValidate from "../../utils/Validation";
+const validateFields = (fieldObj) => {
+    for (const key in fieldObj) {
+        if((key === 'ResidentialProof') || (key === 'ResidentialProofID')){
+            if(fieldObj['ResidentialProofID'] === 0){
+                return {
+                    isValid: false,
+                    msg: 'Please select a Id doc'
+                }
+            }
+        }else{
+        const isValid = isValidate(key, fieldObj[key]);
+        if (isValid?.length) {
+            return {
+                isValid: false,
+                msg: isValid
+            }
+        }
+    }
+    }
+    return {
+        isValid: true,
+        msg: null
+    }
+}
+
 const personalDetailObj = {
     FirstName: '',
     LastName: '',
@@ -43,28 +68,26 @@ const Loan = observer(({ navigation }) => {
     const [addressDetail, setAddressDetail] = useState(addressObj)
     const [idDetail, setIdDetail] = useState(idObj);
     const onChangeProfileHandler = (id, value) => {
-        console.log(id, value);
         let modObj = { ...personalDetail };
         modObj[id] = value
         setPersonalDetail(modObj)
     }
     const onChangeAddressHandler = (id, value) => {
-        console.log(id, value)
         let modObj = { ...addressDetail };
         modObj[id] = value
         setAddressDetail(modObj)
     }
     const onChangeIdHandler = (id, value) => {
-        console.log(id, value)
         let modObj = { ...idDetail };
         modObj[id] = value
         setIdDetail(modObj)
     }
 
     const onSubmit = async () => {
-        let validationDetail = validationObj;
-
-        if (validationDetail?.isValid) {
+        let checkPersonDetail = validateFields(personalDetail) ;
+        let checkAddressDetail= validateFields(addressDetail);
+        let checkIdDetail= validateFields(idDetail);
+        if (checkPersonDetail?.isValid && checkAddressDetail?.isValid && checkIdDetail?.isValid) {
             const data = {
                 PersonalDetails: {
                     FirstName: personalDetail.FirstName,
@@ -94,11 +117,11 @@ const Loan = observer(({ navigation }) => {
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER
                 );
-                navigation.navigate('Main')
+                navigation.navigate('Main');
             }
         } else {
             ToastAndroid.showWithGravity(
-                validationDetail?.msg,
+                checkPersonDetail?.msg || checkAddressDetail?.msg || checkIdDetail?.msg,
                 ToastAndroid.SHORT,
                 ToastAndroid.CENTER
             );
@@ -133,6 +156,7 @@ const Loan = observer(({ navigation }) => {
                     id="PhoneNumber"
                     label="Phone Number"
                     keyboardType="phone-pad"
+                    maxLength={10}
                     onChangeHandler={onChangeProfileHandler} />
             </View>
         </View>)
@@ -230,9 +254,13 @@ const styles = StyleSheet.create({
     },
     maintitle: {
         fontSize: 26,
+        color:'black',
+        fontWeight:'700'
     },
     formtitle: {
-        fontSize: 20
+        fontSize: 20,
+        color:'black',
+        fontWeight:'700'
     },
     formView: {
         paddingVertical: 10

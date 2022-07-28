@@ -10,7 +10,10 @@ const Main = observer(() => {
     const _renderListItem=({item})=> {
         return(
             <View style={styles.formView}>
-                <Text>{item?.PersonalDetails?.FirstName}</Text>
+                <Text style={styles.title}>First Name: {item?.PersonalDetails?.FirstName}</Text>
+                <Text style={styles.title}>Last Name: {item?.PersonalDetails?.LastName}</Text>
+                <Text style={styles.title}>Email: {item?.PersonalDetails?.EmailAddress}</Text>
+                <Text style={styles.title}>DOB: {item?.PersonalDetails?.DateOfBirth}</Text>
             </View>
         )
     }
@@ -29,13 +32,19 @@ export default Main
 
 const styles = StyleSheet.create({
 container:{
-    flex:1
+    flex:1,
+    backgroundColor: '#ffffff'
 },
 formView:{
     margin:10,
     borderWidth:1,
-    borderColor:'grey',
+    borderColor:'orange',
     borderRadius:8,
-    padding:10
+    padding:10,
+    
+},
+title:{
+    fontSize:13,
+    color: 'grey'
 }
 })

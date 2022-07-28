@@ -50,6 +50,13 @@ export const addressValidator = (address) => {
     }
     return false;
   }
+
+  function validateNumberField(value){
+    if(/^\d*$/.test(value)){
+        return true
+    }
+    return false
+  }
   
 
 const isValidate = (inputKey,inputField) => {
@@ -64,6 +71,12 @@ const isValidate = (inputKey,inputField) => {
       case 'LastName': {
         if(!inputField || nameValidator(inputField)===false) {
           return "Please enter Last Name"
+        }
+        break;
+      }
+      case 'ApartmentNumber': {
+        if(!inputField || validateNumberField(inputField)===false) {
+          return "Please enter Apartment"
         }
         break;
       }
@@ -104,6 +117,18 @@ const isValidate = (inputKey,inputField) => {
       case 'State': {
         if(!inputField || nameValidator(inputField)===false){
           return "Please enter valid State"
+        }
+        break;
+      }
+      case 'IdNumber': {
+        if(!inputField || validateNumberField(inputField)===false) {
+          return "Please enter valid ID Number"
+        }
+        break;
+      }
+      case 'IdState': {
+        if(!inputField || nameValidator(inputField)===false){
+          return "Please enter valid ID State "
         }
         break;
       }

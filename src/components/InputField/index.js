@@ -8,12 +8,6 @@ const InputField = (props) => {
         setValue(value);
         props?.onChangeHandler(props?.id,value);
     }
-    useEffect(()=> {
-        setValue(value)
-    },[])
-    useEffect(()=> {
-        setValue(value)
-    },[props?.value])
     return (
         <TextInput
             style={style.textField}
