@@ -22,7 +22,7 @@ const TabsComponent = () => (
       unmountOnBlur:true,
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
-        if (route.name === 'Main') {
+        if (route.name === 'Home') {
           iconName = focused
             ? 'calculator'
             : 'calculator';
@@ -41,7 +41,7 @@ const TabsComponent = () => (
     })}
    
     >
-    <Tab.Screen name="Main" component={Main} options={{ headerShown: false }}/>
+    <Tab.Screen name="Home" component={Main} options={{ headerShown: false }}/>
     <Tab.Screen name="Search" component={Search} options={{ headerShown: false }}/>
     <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
     <Tab.Screen name="Loan" component={Loan} options={{ headerShown: false }}/>

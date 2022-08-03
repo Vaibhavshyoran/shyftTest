@@ -11,6 +11,7 @@ import {
   StyleSheet,
   SafeAreaView,
   View,
+  LogBox
 } from 'react-native';
 import { StoreProvider, stores } from './src/store';
 
@@ -21,6 +22,12 @@ import createRootNavigator from './src/navigation/Nav';
 const Layout = createRootNavigator;
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
+
+  }
+
   render() {
     return (
       <StoreProvider>

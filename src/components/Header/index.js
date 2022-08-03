@@ -16,12 +16,12 @@ const styles= StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         paddingVertical:10,
-        backgroundColor:'lightgrey'
+        backgroundColor:'#659EC7'
     },
     title:{
         textAlign:'center',
         alignSelf:'center',
-        color:'maroon',
+        color:'#ffffff',
         fontSize:16,
         fontWeight:"800"
     }

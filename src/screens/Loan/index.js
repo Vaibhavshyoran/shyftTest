@@ -9,22 +9,22 @@ import { useStore } from "../../store";
 import isValidate from "../../utils/Validation";
 const validateFields = (fieldObj) => {
     for (const key in fieldObj) {
-        if((key === 'ResidentialProof') || (key === 'ResidentialProofID')){
-            if(fieldObj['ResidentialProofID'] === 0){
+        if ((key === 'ResidentialProof') || (key === 'ResidentialProofID')) {
+            if (fieldObj['ResidentialProofID'] === 0) {
                 return {
                     isValid: false,
                     msg: 'Please select a Id doc'
                 }
             }
-        }else{
-        const isValid = isValidate(key, fieldObj[key]);
-        if (isValid?.length) {
-            return {
-                isValid: false,
-                msg: isValid
+        } else {
+            const isValid = isValidate(key, fieldObj[key]);
+            if (isValid?.length) {
+                return {
+                    isValid: false,
+                    msg: isValid
+                }
             }
         }
-    }
     }
     return {
         isValid: true,
@@ -84,9 +84,9 @@ const Loan = observer(({ navigation }) => {
     }
 
     const onSubmit = async () => {
-        let checkPersonDetail = validateFields(personalDetail) ;
-        let checkAddressDetail= validateFields(addressDetail);
-        let checkIdDetail= validateFields(idDetail);
+        let checkPersonDetail = validateFields(personalDetail);
+        let checkAddressDetail = validateFields(addressDetail);
+        let checkIdDetail = validateFields(idDetail);
         if (checkPersonDetail?.isValid && checkAddressDetail?.isValid && checkIdDetail?.isValid) {
             const data = {
                 PersonalDetails: {
@@ -117,7 +117,7 @@ const Loan = observer(({ navigation }) => {
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER
                 );
-                navigation.navigate('Main');
+                navigation.navigate('Home');
             }
         } else {
             ToastAndroid.showWithGravity(
@@ -223,7 +223,7 @@ const Loan = observer(({ navigation }) => {
     return (
         <View style={styles.mainContainer}>
             <Header title="Loan" />
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} nestedScrollEnabled={true}>
                 <Text style={styles.maintitle}>
                     Customer Information
                 </Text>
@@ -232,6 +232,7 @@ const Loan = observer(({ navigation }) => {
                 {_renderIdentificationDetail()}
                 <Button
                     mode="contained"
+                    color='#43C6DB'
                     style={styles.btn}
                     onPress={onSubmit}>
                     Submit
@@ -254,13 +255,13 @@ const styles = StyleSheet.create({
     },
     maintitle: {
         fontSize: 26,
-        color:'black',
-        fontWeight:'700'
+        color: 'black',
+        fontWeight: '700'
     },
     formtitle: {
         fontSize: 20,
-        color:'black',
-        fontWeight:'700'
+        color: 'black',
+        fontWeight: '700'
     },
     formView: {
         paddingVertical: 10
@@ -275,6 +276,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     btn: {
-        marginBottom: 30
+        marginBottom: 30,
     }
 })
